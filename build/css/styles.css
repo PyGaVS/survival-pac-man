@@ -1,0 +1,28 @@
+#player {
+  background-image: url("../images/pac-man/pac-man-default.gif");
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
+  left: 50px;
+  bottom: 50px;
+  position: absolute;
+  width: 3%;
+  aspect-ratio: 1 / 1;
+  border: solid white;
+}
+
+div.screen {
+  background-image : url('../images/background/void.jpg');
+  background-attachment: fixed;
+  scroll-behavior: smooth;
+  width: 99%;
+  max-height: 95%;
+  aspect-ratio: 16 / 9;
+  position: relative;
+  border: solid blue 0.3rem;
+}
+
+body {
+  background-color: black;
+}
