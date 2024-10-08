@@ -1,3 +1,15 @@
-export function getStep(speed: number, screenWidth: number): number{
-  return screenWidth/360 - speed;
+export function setPos(element: HTMLElement, x: number, y: number): HTMLElement{
+  if(x < 0){
+    element.style.right = `${-x}px`
+  } else {
+    element.style.left = `${x}px` 
+  }
+  
+  if(y < 0){
+    element.style.top = `${-y}px`
+  } else {
+    element.style.bottom = `${y}px`;
+  }
+
+  return element;
 }

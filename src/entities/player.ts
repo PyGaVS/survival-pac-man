@@ -1,55 +1,51 @@
-import { getStep } from "../utils/helper.js";
-import { Direction } from "./direction.js";
-import { Switch } from "./switch.js";
-import { Screen } from "./screen.js";
+import { Direction } from "../types/direction.js";
+import { Switch } from "../types/switch.js";
+import { Screen } from "../types/screen.js";
+import { Position } from "../types/position.js";
+import { Entity } from "./entity.js";
 
-export class Player extends Screen {
+Screen
+export class Player extends Entity {
   public score: number = 0;
-  public direction: Direction;
-  public posx: number = 50;
-  public posy: number = 50;
-  public speed: number = 0;    //to update
-  public element: HTMLElement = document.getElementById("player");
 
   constructor(){
     super();
-    this.posy = this.screenElement.getBoundingClientRect().height/10;
-    this.posx = this.posy;
-    this.element.style.left = `${this.posx}px`;
-    this.element.style.bottom = `${this.posy}px`;
+    this.element = document.getElementById("player")!;
+    this.pos = {x: this.screen.getHeight()/10, y: this.screen.getHeight()/10}
+    this.setPos(this.pos.x, this.pos.y)
     this.element.style.display = "inline";
   }
 
-  move(){
-    const rect = this.screenElement.getBoundingClientRect();
-    const step = getStep(this.speed, rect.width);
+  public move(){
+    const rect = this.screen.element.getBoundingClientRect();
+    const step = this.screen.getStep(this.speed);
 
-    if (this.posy >= rect.height - this.element.offsetHeight - 10) {  //top border
+    if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
       this.changeDirection(undefined, "down")
-    } else if (this.posy <= 1) {  //bottom border
+    } else if (this.pos.y <= 1) {  //bottom border
       this.changeDirection(undefined, "up")
-    } else if (this.posx <= 1) {  //left border
+    } else if (this.pos.x <= 1) {  //left border
       this.changeDirection(undefined, "right")
-    } else if (this.posx >= rect.width - this.element.offsetWidth - 10) { //right border
+    } else if (this.pos.x >= rect.width - this.element.offsetWidth - 10) { //right border
       this.changeDirection(undefined, "left")
     }
 
     const directions: Switch = {
       up: () => {
-        this.posy += step
-        this.element.style.bottom = `${this.posy}px`
+        this.pos.y += step
+        this.element.style.bottom = `${this.pos.y}px`
       },
       down: () => {
-        this.posy -= step
-        this.element.style.bottom = `${this.posy}px`
+        this.pos.y -= step
+        this.element.style.bottom = `${this.pos.y}px`
       },
       left: () => {
-        this.posx -= step
-        this.element.style.left = `${this.posx}px`
+        this.pos.x -= step
+        this.element.style.left = `${this.pos.x}px`
       },
       right: () => {
-        this.posx += step
-        this.element.style.left = `${this.posx}px`
+        this.pos.x += step
+        this.element.style.left = `${this.pos.x}px`
       }
     };
 
@@ -57,7 +53,7 @@ export class Player extends Screen {
     requestAnimationFrame(() => this.move());
   }
 
-  changeDirection(event?: KeyboardEvent, force?: Direction){
+  public changeDirection(event?: KeyboardEvent, force?: Direction){
     if(force){
       switch (force) {
         case "up":
@@ -77,7 +73,7 @@ export class Player extends Screen {
             this.element.style.transform = "rotate(0deg)"
             break;
       }
-    } else {
+    } else if(event) {
       switch (event.key) {
         case "ArrowUp":
             this.direction = "up";
