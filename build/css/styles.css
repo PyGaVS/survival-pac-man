@@ -4,12 +4,21 @@
   background-position: center;
   background-repeat: no-repeat;
   position: fixed;
-  left: 50px;
-  bottom: 50px;
+  display: none;
   position: absolute;
   width: 3%;
   aspect-ratio: 1 / 1;
   border: solid white;
+}
+
+div.screen > p {
+  font-size: 2rem;
+  color: white;
+  position: fixed;
+  right: 50%;
+  bottom: 50%;
+  transform: translate(50%, 50%);
+  background-color: black;
 }
 
 div.screen {

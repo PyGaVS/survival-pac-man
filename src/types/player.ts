@@ -1,50 +1,59 @@
+import { getStep } from "../utils/helper.js";
 import { Direction } from "./direction.js";
 import { Switch } from "./switch.js";
+import { Screen } from "./screen.js";
 
-export class Player {
-  score: number = 0;
-  direction: Direction;
-  posx: number = 50;
-  posy: number = 50;
-  speed: number = 0;
-  element: HTMLElement = document.getElementById("player");
-  screen: HTMLElement = document.getElementById("screen")
+export class Player extends Screen {
+  public score: number = 0;
+  public direction: Direction;
+  public posx: number = 50;
+  public posy: number = 50;
+  public speed: number = 0;    //to update
+  public element: HTMLElement = document.getElementById("player");
+
+  constructor(){
+    super();
+    this.posy = this.screenElement.getBoundingClientRect().height/10;
+    this.posx = this.posy;
+    this.element.style.left = `${this.posx}px`;
+    this.element.style.bottom = `${this.posy}px`;
+    this.element.style.display = "inline";
+  }
 
   move(){
-    const rect = this.screen.getBoundingClientRect();
-    this.speed = rect.width/350;
-    console.log(this.speed);
+    const rect = this.screenElement.getBoundingClientRect();
+    const step = getStep(this.speed, rect.width);
 
-    if (this.posy >= rect.height - this.element.offsetHeight - 10) {
+    if (this.posy >= rect.height - this.element.offsetHeight - 10) {  //top border
       this.changeDirection(undefined, "down")
-    } else if (this.posy <= 1) {
+    } else if (this.posy <= 1) {  //bottom border
       this.changeDirection(undefined, "up")
-    } else if (this.posx <= 1) {
+    } else if (this.posx <= 1) {  //left border
       this.changeDirection(undefined, "right")
-    } else if (this.posx >= rect.width - this.element.offsetWidth - 10) {
+    } else if (this.posx >= rect.width - this.element.offsetWidth - 10) { //right border
       this.changeDirection(undefined, "left")
     }
 
     const directions: Switch = {
       up: () => {
-        this.posy += this.speed
-        this.element.style.bottom = this.posy.toString() + 'px'
+        this.posy += step
+        this.element.style.bottom = `${this.posy}px`
       },
       down: () => {
-        this.posy -= this.speed
-        this.element.style.bottom = this.posy.toString() + 'px'
+        this.posy -= step
+        this.element.style.bottom = `${this.posy}px`
       },
       left: () => {
-        this.posx -= this.speed
-        this.element.style.left = this.posx.toString() + 'px'
+        this.posx -= step
+        this.element.style.left = `${this.posx}px`
       },
-      default: () => {
-        this.posx += this.speed
-        this.element.style.left = this.posx.toString() + 'px'
+      right: () => {
+        this.posx += step
+        this.element.style.left = `${this.posx}px`
       }
     };
 
-    (directions[this.direction] ?? directions.default)()
+    (directions[this.direction] ?? directions.right)()
     requestAnimationFrame(() => this.move());
   }
 
