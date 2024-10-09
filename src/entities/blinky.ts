@@ -18,6 +18,7 @@ export class Blinky extends Phantom {
   move(gameScreen: GameScreen){
     const rect = gameScreen.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
+    console.log(`blinky : ${step}`)
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
       this.changeDirection("down")

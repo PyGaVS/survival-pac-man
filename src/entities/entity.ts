@@ -6,7 +6,7 @@ export class Entity {
 
   public direction: Direction = "right";
   public pos!: Position
-  public speed: number = 150;
+  public speed: number = 30;
   public element!: HTMLElement;
   //public gamescreen: GameScreen
 

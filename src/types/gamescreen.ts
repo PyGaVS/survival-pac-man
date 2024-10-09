@@ -23,7 +23,7 @@ export class GameScreen {
   }
 
   public getStep(speed: number): number{
-    return this.getWidth()/(500 - speed);
+    return (this.getWidth()*speed)/(10**4);
   }
 
   public getWidth(): number {

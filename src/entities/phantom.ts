@@ -8,12 +8,13 @@ export abstract class Phantom extends Entity {
   
   constructor(){
     super();
-    this.speed = 5;
+    this.speed = 25;
   }
 
   move(gameScreen: GameScreen){
     const rect = this.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
+    console.log(`blinky : ${step}`)
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
       this.changeDirection("down")
