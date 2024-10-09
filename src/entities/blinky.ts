@@ -15,10 +15,14 @@ export class Blinky extends Phantom {
     this.direction = "left"
   }
 
-  move(gameScreen: GameScreen){
+  move(gameScreen: GameScreen, frame: number = 1){
     const rect = gameScreen.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
-    console.log(`blinky : ${step}`)
+
+    if(frame >= 60){
+      console.log("CHASE");
+      frame = 0
+    }
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
       this.changeDirection("down")
@@ -47,10 +51,12 @@ export class Blinky extends Phantom {
         this.pos.x += step
         this.element.style.left = `${this.pos.x}px`
       }
+
+      //TODO : make forward()
     };
 
     (directions[this.direction] ?? directions.right)()
-    requestAnimationFrame(() => this.move(gameScreen));
+    requestAnimationFrame(() => this.move(gameScreen, frame + 1));
   }
 
   

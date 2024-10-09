@@ -18,7 +18,6 @@ export class Player extends Entity {
   public move(gameScreen: GameScreen){
     const rect = gameScreen.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
-    console.log(`pac-man : ${step}`)
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
       this.changeDirection(undefined, "down")

@@ -1,5 +1,4 @@
 import { Blinky } from "../entities/blinky.js";
-import { Phantom } from "../entities/phantom.js";
 import { Player } from "../entities/player.js";
 
 export class GameScreen {

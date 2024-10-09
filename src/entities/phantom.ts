@@ -11,6 +11,7 @@ export abstract class Phantom extends Entity {
     this.speed = 25;
   }
 
+  /*
   move(gameScreen: GameScreen){
     const rect = this.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
@@ -47,7 +48,7 @@ export abstract class Phantom extends Entity {
 
     (directions[this.direction] ?? directions.right)()
     requestAnimationFrame(() => this.move(gameScreen));
-  }
+  }*/
 
   changeDirection(direction: Direction){
     switch (direction) {
