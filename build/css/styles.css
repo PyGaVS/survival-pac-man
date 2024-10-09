@@ -17,8 +17,9 @@
   background-image: url("../images/blinky/blinky-default-right.gif");
 }
 
-div.screen > p {
+div.gameScreen > p {
   font-size: 2rem;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   color: white;
   position: absolute;
   right: 50%;
@@ -27,20 +28,19 @@ div.screen > p {
   background-color: black;
 }
 
-div.screen {
+div.gameScreen {
   background-image : url('../images/background/void.jpg');
   background-attachment: fixed;
   scroll-behavior: smooth;
-  width: 98%;
+  width: 97%;
   max-height: 95%;
   aspect-ratio: 16 / 9;
   position: relative;
   border: solid blue 0.3rem;
+  position: fixed;
+  margin: auto;
 }
 
 body {
   background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }

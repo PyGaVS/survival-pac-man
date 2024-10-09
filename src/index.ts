@@ -1,9 +1,11 @@
 import { Blinky } from "./entities/blinky.js";
 import { Player } from "./entities/player.js";
+import { GameScreen } from "./types/gamescreen.js";
 
-let player = new Player()
-let blinky = new Blinky()
-
+let gamescreen = new GameScreen()
+//let player = new Player(gamescreen)
+//let blinky = new Blinky(gamescreen)
+/*
 function start(){
   window.removeEventListener("keydown", start)
   let start_text = document.getElementById("start_text")!
@@ -17,8 +19,9 @@ function start(){
 function stop(){
   cancelAnimationFrame(requestAnimationFrame(() => player.move()))
 }
-*/
+
 
 window.addEventListener("keydown", start)
+*/
 
 

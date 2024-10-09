@@ -1,6 +1,6 @@
 import { Direction } from "../types/direction.js";
 import { Position } from "../types/position.js";
-import { Screen } from "../types/screen.js";
+import { GameScreen } from "../types/gamescreen.js";
 import { Switch } from "../types/switch.js";
 import { Entity } from "./entity.js";
 export abstract class Phantom extends Entity {
@@ -8,11 +8,12 @@ export abstract class Phantom extends Entity {
   
   constructor(){
     super();
+    this.speed = 5;
   }
 
-  move(){
+  move(gameScreen: GameScreen){
     const rect = this.element.getBoundingClientRect();
-    const step = this.screen.getStep(this.speed);
+    const step = gameScreen.getStep(this.speed);
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
       this.changeDirection("down")
@@ -44,7 +45,7 @@ export abstract class Phantom extends Entity {
     };
 
     (directions[this.direction] ?? directions.right)()
-    requestAnimationFrame(() => this.move());
+    requestAnimationFrame(() => this.move(gameScreen));
   }
 
   changeDirection(direction: Direction){

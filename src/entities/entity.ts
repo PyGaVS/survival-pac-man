@@ -1,29 +1,27 @@
 import { Direction } from "../types/direction.js";
 import { Position } from "../types/position.js";
-import { Screen } from "../types/screen.js";
+import { GameScreen } from "../types/gamescreen.js";
 
 export class Entity {
 
   public direction: Direction = "right";
   public pos!: Position
-  public speed: number = 10;
+  public speed: number = 150;
   public element!: HTMLElement;
-  public screen: Screen
+  //public gamescreen: GameScreen
 
-  constructor(){
-    this.screen = new Screen()
-  }
+  constructor(){}
 
-  public setPos(x: number, y: number): Position {
+  public setPos(x: number, y: number, gameScreen: GameScreen): Position {
     this.pos = {x: 0, y: 0}
     if(x < 0){
-      this.pos.x = this.screen.getWidth() + x
+      this.pos.x = gameScreen.getWidth() + x
     } else {
       this.pos.x = x;
     }
     
     if(y < 0){
-      this.pos.y = this.screen.getHeight() + y
+      this.pos.y = gameScreen.getHeight() + y
     } else {
       this.pos.y = y;
     }

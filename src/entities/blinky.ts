@@ -3,21 +3,21 @@ import { setPos } from "../utils/helper.js";
 import { Direction } from "../types/direction.js";
 import { Switch } from "../types/switch.js";
 import { Entity } from "./entity.js";
+import { GameScreen } from "../types/gamescreen.js";
 
 export class Blinky extends Phantom {
-  constructor(){
+  constructor(gameScreen: GameScreen){
     super();
     this.element = document.getElementById("blinky")!
-    console.log((this.screen.getHeight()/10)*(-1))
-    this.pos = this.setPos((this.screen.getHeight()/10)*(-1), (this.screen.getHeight()/10)*(-1))
+    this.pos = this.setPos((gameScreen.getHeight()/10)*(-1), (gameScreen.getHeight()/10)*(-1), gameScreen)
     console.log(this.pos)
     this.element.style.display = "inline";
     this.direction = "left"
   }
 
-  move(){
-    const rect = this.screen.element.getBoundingClientRect();
-    const step = this.screen.getStep(this.speed);
+  move(gameScreen: GameScreen){
+    const rect = gameScreen.element.getBoundingClientRect();
+    const step = gameScreen.getStep(this.speed);
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
       this.changeDirection("down")
@@ -49,7 +49,7 @@ export class Blinky extends Phantom {
     };
 
     (directions[this.direction] ?? directions.right)()
-    requestAnimationFrame(() => this.move());
+    requestAnimationFrame(() => this.move(gameScreen));
   }
 
   

@@ -1,24 +1,23 @@
 import { Direction } from "../types/direction.js";
 import { Switch } from "../types/switch.js";
-import { Screen } from "../types/screen.js";
+import { GameScreen } from "../types/gamescreen.js";
 import { Position } from "../types/position.js";
 import { Entity } from "./entity.js";
 
-Screen
 export class Player extends Entity {
   public score: number = 0;
 
-  constructor(){
+  constructor(gameScreen: GameScreen){
     super();
     this.element = document.getElementById("player")!;
-    this.pos = {x: this.screen.getHeight()/10, y: this.screen.getHeight()/10}
-    this.setPos(this.pos.x, this.pos.y)
+    this.pos = {x: gameScreen.getHeight()/10, y: gameScreen.getHeight()/10}
+    this.setPos(this.pos.x, this.pos.y, gameScreen)
     this.element.style.display = "inline";
   }
 
-  public move(){
-    const rect = this.screen.element.getBoundingClientRect();
-    const step = this.screen.getStep(this.speed);
+  public move(gameScreen: GameScreen){
+    const rect = gameScreen.element.getBoundingClientRect();
+    const step = gameScreen.getStep(this.speed);
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
       this.changeDirection(undefined, "down")
@@ -50,7 +49,7 @@ export class Player extends Entity {
     };
 
     (directions[this.direction] ?? directions.right)()
-    requestAnimationFrame(() => this.move());
+    requestAnimationFrame(() => this.move(gameScreen));
   }
 
   public changeDirection(event?: KeyboardEvent, force?: Direction){
