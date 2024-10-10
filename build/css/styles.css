@@ -17,6 +17,10 @@
   background-image: url("../images/blinky/blinky-default-right.gif");
 }
 
+#pinky {
+  background-image: url("../images/pinky/pinky-default-down.gif");
+}
+
 div.gameScreen > p {
   font-size: 2rem;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;

@@ -11,19 +11,19 @@ export abstract class Phantom extends Entity {
     this.speed = 20;
   }
 
-  changeDirection(direction: Direction){
+  setDirection(direction: Direction){
     switch (direction) {
       case "up":
           this.direction = "up";
-          this.element.style.backgroundImage = `url("images/${this.name}/blinky-default-up.gif")`;
+          this.element.style.backgroundImage = `url("images/${this.name}/${this.name}-default-up.gif")`;
           break;
       case "down":
           this.direction = "down";
-          this.element.style.backgroundImage = `url("images/${this.name}/blinky-default-down.gif")`;
+          this.element.style.backgroundImage = `url("images/${this.name}/${this.name}-default-down.gif")`;
           break;
       case "left":
           this.direction = "left";
-          this.element.style.backgroundImage = `url("images/${this.name}/blinky-default-right.gif")`;
+          this.element.style.backgroundImage = `url("images/${this.name}/${this.name}-default-right.gif")`;
           this.element.style.transform = "scaleX(-1)"
           break;
       case "right":

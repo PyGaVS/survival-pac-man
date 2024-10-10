@@ -2,14 +2,14 @@ import { Phantom } from "./phantom.js";
 import { GameScreen } from "../types/gamescreen.js";
 import { Player } from "./player.js";
 
-export class Blinky extends Phantom {
+export class Pinky extends Phantom {
   constructor(gameScreen: GameScreen){
     super();
-    this.name = "blinky";
-    this.element = document.getElementById("blinky")!
-    this.pos = this.setPos((gameScreen.getHeight()/4)*(-1), (gameScreen.getHeight()/4)*(-1), gameScreen)
+    this.name = "pinky";
+    this.element = document.getElementById("pinky")!
+    this.pos = this.setPos((gameScreen.getHeight()/10)*(-1), (gameScreen.getHeight()/4)*(-1), gameScreen)
     this.element.style.display = "inline";
-    this.setDirection("left")
+    this.setDirection("down")
   }
 
   move(gameScreen: GameScreen, player: Player, frame: number = 1){
@@ -35,24 +35,5 @@ export class Blinky extends Phantom {
     requestAnimationFrame(() => this.move(gameScreen, player, frame + 1));
   }
 
-  chase(player: Player){
-    const distance_x: number = player.pos.x - this.pos.x
-    const distance_y: number = player.pos.y - this.pos.y
-    if(Math.abs(distance_x) >= Math.abs(distance_y)){
-      if(distance_x < 0){
-        this.setDirection("left")
-      } else {
-        this.setDirection("right")
-      }
-    } else {
-      if(distance_y < 0){
-        this.setDirection("down")
-      } else {
-        this.setDirection("up")
-      }
-    }
-
-  }
-
-  
+  public chase(player: Player){}
 }

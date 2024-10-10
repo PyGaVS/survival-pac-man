@@ -1,10 +1,12 @@
 import { Blinky } from "../entities/blinky.js";
+import { Pinky } from "../entities/pinky.js";
 import { Player } from "../entities/player.js";
 
 export class GameScreen {
   public element: HTMLElement;
   public player: Player;
   public blinky: Blinky;
+  public pinky: Pinky;
   public boundStart: () => void;
 
   constructor(){
@@ -16,6 +18,7 @@ export class GameScreen {
     //init entities
     this.player = new Player(this);
     this.blinky = new Blinky(this);
+    this.pinky = new Pinky(this);
 
     this.boundStart = () => this.start()
     window.addEventListener("keydown", this.boundStart)
@@ -54,8 +57,9 @@ export class GameScreen {
     let start_text = document.getElementById("start_text")!
     start_text.style.display = "none"
     console.log("START");
-    window.addEventListener("keydown", this.player.changeDirection.bind(this.player));
+    window.addEventListener("keydown", this.player.setDirection.bind(this.player));
     requestAnimationFrame(() => this.player.move(this))
     requestAnimationFrame(() => this.blinky.move(this, this.player))
+    requestAnimationFrame(() => this.pinky.move(this, this.player))
   }
 }

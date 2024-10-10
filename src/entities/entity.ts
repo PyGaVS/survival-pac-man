@@ -32,7 +32,7 @@ export class Entity {
     return this.pos;
   }
 
-  public forward(step: number){
+  protected forward(step: number){
     const directions: Switch = {
       up: () => {
         this.pos.y += step
@@ -53,6 +53,5 @@ export class Entity {
     };
 
     (directions[this.direction] ?? directions.right)()
-  }
-  
+  } 
 }

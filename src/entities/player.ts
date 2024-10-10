@@ -20,20 +20,20 @@ export class Player extends Entity {
     const step = gameScreen.getStep(this.speed);
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
-      this.changeDirection(undefined, "down")
+      this.setDirection(undefined, "down")
     } else if (this.pos.y <= 1) {  //bottom border
-      this.changeDirection(undefined, "up")
+      this.setDirection(undefined, "up")
     } else if (this.pos.x <= 1) {  //left border
-      this.changeDirection(undefined, "right")
+      this.setDirection(undefined, "right")
     } else if (this.pos.x >= rect.width - this.element.offsetWidth - 10) { //right border
-      this.changeDirection(undefined, "left")
+      this.setDirection(undefined, "left")
     }
 
     this.forward(step);
     requestAnimationFrame(() => this.move(gameScreen));
   }
 
-  public changeDirection(event?: KeyboardEvent, force?: Direction){
+  public setDirection(event?: KeyboardEvent, force?: Direction){
     if(force){
       switch (force) {
         case "up":
