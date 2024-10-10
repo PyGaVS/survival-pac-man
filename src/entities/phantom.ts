@@ -8,10 +8,10 @@ export abstract class Phantom extends Entity {
   name: string = ""
   constructor(){
     super();
-    this.speed = 20;
+    this.speed = 15;
   }
 
-  setDirection(direction: Direction){
+  public setDirection(direction: Direction){
     switch (direction) {
       case "up":
           this.direction = "up";
@@ -28,9 +28,27 @@ export abstract class Phantom extends Entity {
           break;
       case "right":
           this.direction = "right";
-          this.element.style.backgroundImage = `url("images/${this.name}/blinky-default-right.gif")`;
+          this.element.style.backgroundImage = `url("images/${this.name}/${this.name}-default-right.gif")`;
           this.element.style.transform = "rotate(0deg)"
           break;
+    }
+  }
+
+  public aim(x: number, y: number){
+    const distance_x: number = x - this.pos.x
+    const distance_y: number = y - this.pos.y
+    if(Math.abs(distance_x) >= Math.abs(distance_y)){
+      if(distance_x < 0){
+        this.setDirection("left")
+      } else {
+        this.setDirection("right")
+      }
+    } else {
+      if(distance_y < 0){
+        this.setDirection("down")
+      } else {
+        this.setDirection("up")
+      }
     }
   }
 }

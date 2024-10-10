@@ -6,7 +6,7 @@
   position: absolute;
   width: 3%;
   aspect-ratio: 1 / 1;
-  /*border: solid white;*/
+  border: solid white;
 }
 
 #player {
@@ -36,13 +36,15 @@ div.gameScreen {
   background-image : url('../images/background/void.jpg');
   background-attachment: fixed;
   scroll-behavior: smooth;
-  width: 97%;
+  width: 95%;
+  height: calc(95vw/16*9);
   max-height: 95%;
-  aspect-ratio: 16 / 9;
+  max-width: calc(95vh/9*16);
   position: relative;
   border: solid blue 0.3rem;
-  position: fixed;
+  /*position: fixed;*/
   margin: auto;
+  position: relative;
 }
 
 body {
