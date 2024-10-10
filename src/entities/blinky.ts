@@ -4,6 +4,7 @@ import { Direction } from "../types/direction.js";
 import { Switch } from "../types/switch.js";
 import { Entity } from "./entity.js";
 import { GameScreen } from "../types/gamescreen.js";
+import { Player } from "./player.js";
 
 export class Blinky extends Phantom {
   constructor(gameScreen: GameScreen){
@@ -15,12 +16,12 @@ export class Blinky extends Phantom {
     this.direction = "left"
   }
 
-  move(gameScreen: GameScreen, frame: number = 1){
+  move(gameScreen: GameScreen, player: Player, frame: number = 1){
     const rect = gameScreen.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
 
     if(frame >= 60){
-      console.log("CHASE");
+      this.chase(player)
       frame = 0
     }
 
@@ -34,29 +35,14 @@ export class Blinky extends Phantom {
       this.changeDirection("left")
     }
 
-    const directions: Switch = {
-      up: () => {
-        this.pos.y += step
-        this.element.style.bottom = `${this.pos.y}px`
-      },
-      down: () => {
-        this.pos.y -= step
-        this.element.style.bottom = `${this.pos.y}px`
-      },
-      left: () => {
-        this.pos.x -= step
-        this.element.style.left = `${this.pos.x}px`
-      },
-      right: () => {
-        this.pos.x += step
-        this.element.style.left = `${this.pos.x}px`
-      }
+    this.forward(step);
+    requestAnimationFrame(() => this.move(gameScreen, player, frame + 1));
+  }
 
-      //TODO : make forward()
-    };
+  chase(player: Player){
+    console.log(player.pos)
+    const distance_x: number = this.pos.x - player.pos.x
 
-    (directions[this.direction] ?? directions.right)()
-    requestAnimationFrame(() => this.move(gameScreen, frame + 1));
   }
 
   

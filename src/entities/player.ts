@@ -29,26 +29,7 @@ export class Player extends Entity {
       this.changeDirection(undefined, "left")
     }
 
-    const directions: Switch = {
-      up: () => {
-        this.pos.y += step
-        this.element.style.bottom = `${this.pos.y}px`
-      },
-      down: () => {
-        this.pos.y -= step
-        this.element.style.bottom = `${this.pos.y}px`
-      },
-      left: () => {
-        this.pos.x -= step
-        this.element.style.left = `${this.pos.x}px`
-      },
-      right: () => {
-        this.pos.x += step
-        this.element.style.left = `${this.pos.x}px`
-      }
-    };
-
-    (directions[this.direction] ?? directions.right)()
+    this.forward(step);
     requestAnimationFrame(() => this.move(gameScreen));
   }
 

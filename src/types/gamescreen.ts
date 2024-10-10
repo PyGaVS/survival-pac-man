@@ -57,6 +57,6 @@ export class GameScreen {
     console.log("START");
     window.addEventListener("keydown", this.player.changeDirection.bind(this.player));
     requestAnimationFrame(() => this.player.move(this))
-    requestAnimationFrame(() => this.blinky.move(this))
+    requestAnimationFrame(() => this.blinky.move(this, this.player))
   }
 }

@@ -1,6 +1,7 @@
 import { Direction } from "../types/direction.js";
 import { Position } from "../types/position.js";
 import { GameScreen } from "../types/gamescreen.js";
+import { Switch } from "../types/switch.js";
 
 export class Entity {
 
@@ -29,6 +30,29 @@ export class Entity {
     this.element.style.left = `${this.pos.x}px`
     this.element.style.bottom = `${this.pos.y}px`
     return this.pos;
+  }
+
+  public forward(step: number){
+    const directions: Switch = {
+      up: () => {
+        this.pos.y += step
+        this.element.style.bottom = `${this.pos.y}px`
+      },
+      down: () => {
+        this.pos.y -= step
+        this.element.style.bottom = `${this.pos.y}px`
+      },
+      left: () => {
+        this.pos.x -= step
+        this.element.style.left = `${this.pos.x}px`
+      },
+      right: () => {
+        this.pos.x += step
+        this.element.style.left = `${this.pos.x}px`
+      }
+    };
+
+    (directions[this.direction] ?? directions.right)()
   }
   
 }
