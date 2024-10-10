@@ -9,9 +9,9 @@ import { Player } from "./player.js";
 export class Blinky extends Phantom {
   constructor(gameScreen: GameScreen){
     super();
+    this.name = "blinky";
     this.element = document.getElementById("blinky")!
     this.pos = this.setPos((gameScreen.getHeight()/10)*(-1), (gameScreen.getHeight()/10)*(-1), gameScreen)
-    console.log(this.pos)
     this.element.style.display = "inline";
     this.direction = "left"
   }
@@ -20,7 +20,7 @@ export class Blinky extends Phantom {
     const rect = gameScreen.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
 
-    if(frame >= 60){
+    if(frame >= 30){
       this.chase(player)
       frame = 0
     }
@@ -40,8 +40,21 @@ export class Blinky extends Phantom {
   }
 
   chase(player: Player){
-    console.log(player.pos)
-    const distance_x: number = this.pos.x - player.pos.x
+    const distance_x: number = player.pos.x - this.pos.x
+    const distance_y: number = player.pos.y - this.pos.y
+    if(Math.abs(distance_x) >= Math.abs(distance_y)){
+      if(distance_x < 0){
+        this.changeDirection("left")
+      } else {
+        this.changeDirection("right")
+      }
+    } else {
+      if(distance_y < 0){
+        this.changeDirection("down")
+      } else {
+        this.changeDirection("up")
+      }
+    }
 
   }
 

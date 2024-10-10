@@ -36,7 +36,6 @@ export class GameScreen {
   public setPos(element: HTMLElement, x: number, y: number): HTMLElement{
     if(x < 0){
       element.style.left = `${this.getWidth() - x}px`
-      console.log(element.style.left)
     } else {
       element.style.left = `${x}px` 
     }
