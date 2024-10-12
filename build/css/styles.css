@@ -21,9 +21,14 @@
   background-image: url("../images/pinky/pinky-default-down.gif");
 }
 
-#pinky {
+#clyde {
   background-image: url("../images/clyde/clyde-default-down.gif");
 }
+
+#inky {
+  background-image: url("../images/inky/inky-default-down.gif");
+}
+
 
 div.gameScreen > p {
   font-size: 2rem;

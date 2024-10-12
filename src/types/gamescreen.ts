@@ -1,5 +1,6 @@
 import { Blinky } from "../entities/blinky.js";
 import { Clyde } from "../entities/clyde.js";
+import { Inky } from "../entities/inky.js";
 import { Phantom } from "../entities/phantom.js";
 import { Pinky } from "../entities/pinky.js";
 import { Player } from "../entities/player.js";
@@ -12,6 +13,7 @@ export class GameScreen {
   public blinky: Blinky;
   public pinky: Pinky;
   public clyde: Clyde;
+  public inky: Inky;
   public phantoms: Phantom[];
   public animationId: number
   public boundStart: () => void;
@@ -28,7 +30,8 @@ export class GameScreen {
     this.blinky = new Blinky(this);
     this.pinky = new Pinky(this);
     this.clyde = new Clyde(this);
-    this.phantoms = [this.blinky, this.pinky, this.clyde];
+    this.inky = new Inky(this);
+    this.phantoms = [this.blinky, this.pinky, this.clyde, this.inky];
 
     this.text = document.getElementById("text")!;
     this.boundStart = () => this.start();
@@ -42,7 +45,8 @@ export class GameScreen {
     this.blinky = new Blinky(this);
     this.pinky = new Pinky(this);
     this.clyde = new Clyde(this);
-    this.phantoms = [this.blinky, this.pinky, this.clyde]
+    this.inky = new Inky(this);
+    this.phantoms = [this.blinky, this.pinky, this.clyde, this.inky]
     this.text.style.display = "block"
     this.text.innerHTML = "Press any button"
     window.addEventListener("keydown", this.boundStart)
@@ -124,6 +128,7 @@ export class GameScreen {
     this.blinky.move(this, this.player, frame)
     this.pinky.move(this, this.player, frame)
     this.clyde.move(this, this.player, frame)
+    this.inky.move(this, this.player, this.phantoms, frame)
 
     for(let phantom of this.phantoms){
       if(this.player.isColliding(phantom)){

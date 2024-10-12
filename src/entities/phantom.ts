@@ -51,4 +51,22 @@ export abstract class Phantom extends Entity {
       }
     }
   }
+
+  public aimAway(x: number, y: number){
+    const distance_x: number = x - this.pos.x
+    const distance_y: number = y - this.pos.y
+    if(Math.abs(distance_x) >= Math.abs(distance_y)){
+      if(distance_y < 0){
+        this.setDirection("up")
+      } else {
+        this.setDirection("down")
+      }
+    } else {
+      if(distance_x < 0){
+        this.setDirection("right")
+      } else {
+        this.setDirection("left")
+      }
+    }
+  }
 }

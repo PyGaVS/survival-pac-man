@@ -13,7 +13,7 @@ export class Clyde extends Phantom {
     this.setDirection("up")
   }
 
-  move(gameScreen: GameScreen, player: Player, frame: number = 1){
+  public move(gameScreen: GameScreen, player: Player, frame: number = 1){
     const rect = gameScreen.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
 
@@ -35,7 +35,7 @@ export class Clyde extends Phantom {
   }
 
   public chase(player: Player, gameScreen: GameScreen){
-    const random: number = getRandomInt(1, 5);
+    const random: number = getRandomInt(1, 6);
     switch (random) {
       case 1:
         this.setDirection("up");
@@ -49,7 +49,7 @@ export class Clyde extends Phantom {
       case 4:
         this.setDirection("right");
         break;
-      case 5:
+      default:
         this.aim(gameScreen.getWidth()/2, gameScreen.getHeight()/2)
         break;
     }
