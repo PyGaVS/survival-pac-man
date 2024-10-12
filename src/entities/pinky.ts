@@ -18,9 +18,8 @@ export class Pinky extends Phantom {
     const rect = gameScreen.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
 
-    if(frame >= 30){
+    if(frame % 30 == 0){
       this.chase(player, gameScreen)
-      frame = 0
     }
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
@@ -39,7 +38,7 @@ export class Pinky extends Phantom {
   public chase(player: Player, gameScreen: GameScreen){
     let targetX: number = player.pos.x;
     let targetY: number = player.pos.y;
-    const target_range: number = this.getTargetRange(player.pos, (gameScreen.getWidth()/16)*4)
+    const target_range: number = this.getTargetRange(player.pos, gameScreen.getRange(25, "w"))
     const directions: Switch = {
       up: () => {
         targetY += target_range

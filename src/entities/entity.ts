@@ -54,4 +54,8 @@ export class Entity {
 
     (directions[this.direction] ?? directions.right)()
   } 
+
+  protected isCloseTo(pos: Position, range: number): boolean{
+    return Math.abs(pos.x - this.pos.x) < range && Math.abs(pos.y - this.pos.y) < range
+  }
 }

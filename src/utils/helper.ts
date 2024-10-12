@@ -17,3 +17,7 @@ export function setPos(element: HTMLElement, x: number, y: number): HTMLElement{
 export function delay(ms: number){
   return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+export function getRandomInt(min: number, max: number):number {
+  return Math.floor(Math.random()*((max+1)-min)+min)
+}

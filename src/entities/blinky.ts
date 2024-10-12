@@ -16,9 +16,8 @@ export class Blinky extends Phantom {
     const rect = gameScreen.element.getBoundingClientRect();
     const step = gameScreen.getStep(this.speed);
 
-    if(frame >= 15){
+    if(frame % 15 == 0){
       this.chase(player)
-      frame = 0
     }
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
@@ -35,25 +34,7 @@ export class Blinky extends Phantom {
   }
 
   chase(player: Player){
-    /*
-    const distance_x: number = player.pos.x - this.pos.x
-    const distance_y: number = player.pos.y - this.pos.y
-    if(Math.abs(distance_x) >= Math.abs(distance_y)){
-      if(distance_x < 0){
-        this.setDirection("left")
-      } else {
-        this.setDirection("right")
-      }
-    } else {
-      if(distance_y < 0){
-        this.setDirection("down")
-      } else {
-        this.setDirection("up")
-      }
-    }
-      */
     this.aim(player.pos.x, player.pos.y)
-
   }
 
   

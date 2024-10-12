@@ -21,6 +21,10 @@
   background-image: url("../images/pinky/pinky-default-down.gif");
 }
 
+#pinky {
+  background-image: url("../images/clyde/clyde-default-down.gif");
+}
+
 div.gameScreen > p {
   font-size: 2rem;
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
