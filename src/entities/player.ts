@@ -20,57 +20,53 @@ export class Player extends Entity {
     const step = gameScreen.getStep(this.speed);
 
     if (this.pos.y >= rect.height - this.element.offsetHeight - 10) {  //top border
-      this.setDirection(undefined, "down")
+      this.setDirection("down")
     } else if (this.pos.y <= 1) {  //bottom border
-      this.setDirection(undefined, "up")
+      this.setDirection("up")
     } else if (this.pos.x <= 1) {  //left border
-      this.setDirection(undefined, "right")
+      this.setDirection("right")
     } else if (this.pos.x >= rect.width - this.element.offsetWidth - 10) { //right border
-      this.setDirection(undefined, "left")
+      this.setDirection("left")
     }
 
     this.forward(step);
   }
 
-  public setDirection(event?: KeyboardEvent, force?: Direction){
-    if(force){
-      switch (force) {
-        case "up":
-            this.direction = "up";
-            this.element.style.transform = "rotate(270deg)"
-            break;
-        case "down":
-            this.direction = "down";
-            this.element.style.transform = "rotate(90deg)"
-            break;
-        case "left":
-            this.direction = "left";
-            this.element.style.transform = "scaleX(-1)"
-            break;
-        case "right":
-            this.direction = "right";
-            this.element.style.transform = "rotate(0deg)"
-            break;
-      }
-    } else if(event) {
-      switch (event.key) {
-        case "ArrowUp":
-            this.direction = "up";
-            this.element.style.transform = "rotate(270deg)"
-            break;
-        case "ArrowDown":
-            this.direction = "down";
-            this.element.style.transform = "rotate(90deg)"
-            break;
-        case "ArrowLeft":
-            this.direction = "left";
-            this.element.style.transform = "scaleX(-1)"
-            break;
-        case "ArrowRight":
-            this.direction = "right";
-            this.element.style.transform = "rotate(0deg)"
-            break;
-      }
+  public setDirection(direction: Direction){
+    switch (direction) {
+      case "up":
+          this.direction = "up";
+          this.element.style.transform = "rotate(270deg)"
+          break;
+      case "down":
+          this.direction = "down";
+          this.element.style.transform = "rotate(90deg)"
+          break;
+      case "left":
+          this.direction = "left";
+          this.element.style.transform = "scaleX(-1)"
+          break;
+      case "right":
+          this.direction = "right";
+          this.element.style.transform = "rotate(0deg)"
+          break;
+    }
+  }
+
+  public getEvent(event: KeyboardEvent){
+    switch (event.key) {
+      case "ArrowUp":
+          this.setDirection("up")
+          break;
+      case "ArrowDown":
+          this.setDirection("down")
+          break;
+      case "ArrowLeft":
+          this.setDirection("left")
+          break;
+      case "ArrowRight":
+          this.setDirection("right")
+          break;
     }
   }
 

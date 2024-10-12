@@ -13,3 +13,7 @@ export function setPos(element: HTMLElement, x: number, y: number): HTMLElement{
 
   return element;
 }
+
+export function delay(ms: number){
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
