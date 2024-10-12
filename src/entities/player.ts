@@ -30,7 +30,6 @@ export class Player extends Entity {
     }
 
     this.forward(step);
-    requestAnimationFrame(() => this.move(gameScreen));
   }
 
   public setDirection(event?: KeyboardEvent, force?: Direction){
@@ -73,5 +72,16 @@ export class Player extends Entity {
             break;
       }
     }
+  }
+
+  public isColliding(entity: Entity){
+    const rect = this.element.getBoundingClientRect();
+    const entityRect = this.element.getBoundingClientRect();
+    return !(
+      this.pos.x + rect.width < entity.pos.x ||
+      this.pos.x > entity.pos.x + entityRect.width ||
+      this.pos.y + rect.height < entity.pos.y ||
+      this.pos.y > entity.pos.y + entityRect.height
+    )
   }
 }

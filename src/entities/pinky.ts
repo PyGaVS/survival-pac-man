@@ -34,7 +34,6 @@ export class Pinky extends Phantom {
     }
 
     this.forward(step);
-    requestAnimationFrame(() => this.move(gameScreen, player, frame + 1));
   }
 
   public chase(player: Player, gameScreen: GameScreen){

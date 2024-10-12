@@ -1,4 +1,5 @@
 import { Blinky } from "../entities/blinky.js";
+import { Phantom } from "../entities/phantom.js";
 import { Pinky } from "../entities/pinky.js";
 import { Player } from "../entities/player.js";
 
@@ -7,6 +8,7 @@ export class GameScreen {
   public player: Player;
   public blinky: Blinky;
   public pinky: Pinky;
+  public phantoms: Phantom[]
   public boundStart: () => void;
 
   constructor(){
@@ -19,6 +21,7 @@ export class GameScreen {
     this.player = new Player(this);
     this.blinky = new Blinky(this);
     this.pinky = new Pinky(this);
+    this.phantoms = [this.blinky, this.pinky]
 
     this.boundStart = () => this.start()
     window.addEventListener("keydown", this.boundStart)
@@ -58,8 +61,21 @@ export class GameScreen {
     start_text.style.display = "none"
     console.log("START");
     window.addEventListener("keydown", this.player.setDirection.bind(this.player));
-    requestAnimationFrame(() => this.player.move(this))
-    requestAnimationFrame(() => this.blinky.move(this, this.player))
-    requestAnimationFrame(() => this.pinky.move(this, this.player))
+    requestAnimationFrame(() => this.gameLoop())
+  }
+
+  public gameLoop(frame: number = 1){
+    if(frame > 60){
+      frame = 1;
+    }
+    this.player.move(this)
+    this.blinky.move(this, this.player, frame)
+    this.pinky.move(this, this.player, frame)
+
+    for(let phantom of this.phantoms){
+      console.log(this.player.isColliding(phantom))
+    }
+
+    requestAnimationFrame(() => this.gameLoop(frame + 1))
   }
 }

@@ -32,7 +32,6 @@ export class Blinky extends Phantom {
     }
 
     this.forward(step);
-    requestAnimationFrame(() => this.move(gameScreen, player, frame + 1));
   }
 
   chase(player: Player){
