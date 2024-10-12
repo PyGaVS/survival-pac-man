@@ -1,12 +1,12 @@
 .entity {
-  background-size: contain;
+  background-size: 110%;
   background-position: center;
   background-repeat: no-repeat;
   display: none;
   position: absolute;
   width: 3%;
   aspect-ratio: 1 / 1;
-  border: solid white;
+  /*border: solid white;*/
 }
 
 #player {
