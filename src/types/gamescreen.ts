@@ -109,7 +109,7 @@ export class GameScreen {
     cancelAnimationFrame(this.animationId)
     this.text.style.display = "block"
     this.text.innerHTML = "you died xD"
-    window.addEventListener("keydown", this.boundStop)
+    delay(1000).then(() => window.addEventListener("keydown", this.boundStop))
   }
 
   public getEvent(event: KeyboardEvent){

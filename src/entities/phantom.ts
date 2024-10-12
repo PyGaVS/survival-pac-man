@@ -8,7 +8,7 @@ export abstract class Phantom extends Entity {
   name: string = ""
   constructor(){
     super();
-    this.speed = 15;
+    this.speed = 20;
   }
 
   public setDirection(direction: Direction){
@@ -56,16 +56,16 @@ export abstract class Phantom extends Entity {
     const distance_x: number = x - this.pos.x
     const distance_y: number = y - this.pos.y
     if(Math.abs(distance_x) >= Math.abs(distance_y)){
-      if(distance_y < 0){
-        this.setDirection("up")
-      } else {
-        this.setDirection("down")
-      }
-    } else {
       if(distance_x < 0){
         this.setDirection("right")
       } else {
         this.setDirection("left")
+      }
+    } else {
+      if(distance_y < 0){
+        this.setDirection("up")
+      } else {
+        this.setDirection("down")
       }
     }
   }
