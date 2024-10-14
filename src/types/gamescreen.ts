@@ -11,6 +11,7 @@ export class GameScreen {
   public element: HTMLElement;
   public text: HTMLElement;
   public scoreText: HTMLElement;
+  public gameId: number = 0;
   public player: Player;
   public blinky: Blinky;
   public pinky: Pinky;
@@ -41,7 +42,7 @@ export class GameScreen {
     this.phantoms = [this.blinky, this.pinky, this.clyde, this.inky];
 
     //init items
-    this.dots = [new Dot(document.getElementById("dot1")!), new Dot(document.getElementById("dot2")!)]
+    this.dots = [new Dot(document.getElementById("dot1")!, this.gameId), new Dot(document.getElementById("dot2")!, this.gameId)]
 
     this.boundStart = () => this.start();
     this.boundStop = () => this.stop();
@@ -51,13 +52,14 @@ export class GameScreen {
   }
 
   public init(){
+    this.gameId += 1;
     this.player = new Player(this);
     this.blinky = new Blinky(this);
     this.pinky = new Pinky(this);
     this.clyde = new Clyde(this);
     this.inky = new Inky(this);
     this.phantoms = [this.blinky, this.pinky, this.clyde, this.inky]
-    this.dots = [new Dot(document.getElementById("dot1")!), new Dot(document.getElementById("dot2")!)]
+    this.dots = [new Dot(document.getElementById("dot1")!, this.gameId), new Dot(document.getElementById("dot2")!, this.gameId)]
     this.text.style.display = "block"
     this.text.innerHTML = "Press any button"
     window.addEventListener("keydown", this.boundStart)
