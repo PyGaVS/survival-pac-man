@@ -5,7 +5,6 @@ import { Position } from "../types/position.js";
 import { Entity } from "./entity.js";
 
 export class Player extends Entity {
-  public score: number = 0;
 
   constructor(gameScreen: GameScreen){
     super();
@@ -14,6 +13,7 @@ export class Player extends Entity {
     this.pos = {x: gameScreen.getHeight()/10, y: gameScreen.getHeight()/10};
     this.setPos(this.pos.x, this.pos.y, gameScreen);
     this.element.style.display = "inline";
+    this.setScore(0, gameScreen.scoreText, true);
   }
 
   public move(gameScreen: GameScreen){
@@ -80,5 +80,10 @@ export class Player extends Entity {
       this.pos.y + rect.height < entity.pos.y ||
       this.pos.y > entity.pos.y + entityRect.height
     )
+  }
+
+  public setScore(score: number, scoreText: HTMLElement, reset: boolean = false){
+    this.score = reset ? score : this.score + 1
+    scoreText.innerHTML = `Score : ${this.score}`
   }
 }

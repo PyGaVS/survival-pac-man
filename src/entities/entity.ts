@@ -5,6 +5,7 @@ import { Switch } from "../types/switch.js";
 
 export class Entity {
 
+  public score: number = 0;
   public direction: Direction = "right";
   public pos!: Position
   public speed: number = 30;

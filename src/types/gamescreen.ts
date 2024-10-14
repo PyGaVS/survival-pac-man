@@ -29,6 +29,9 @@ export class GameScreen {
     this.element.style.width = this.getWidth().toString() + 'px';
     this.element.style.height = this.getHeight().toString() + 'px';
     console.log(this.getWidth()/16, this.getHeight()/9);
+
+    this.text = document.getElementById("text")!;
+    this.scoreText = document.getElementById("scoreText")!;
     //init characters
     this.player = new Player(this);
     this.blinky = new Blinky(this);
@@ -40,8 +43,6 @@ export class GameScreen {
     //init items
     this.dots = [new Dot(document.getElementById("dot1")!), new Dot(document.getElementById("dot2")!)]
 
-    this.text = document.getElementById("text")!;
-    this.scoreText = document.getElementById("scoreText")!;
     this.boundStart = () => this.start();
     this.boundStop = () => this.stop();
     this.boundPlayerEvent = (event: KeyboardEvent) => this.player.getEvent(event)
@@ -155,9 +156,8 @@ export class GameScreen {
 
     for(let dot of this.dots){
       if(this.player.isColliding(dot) && dot.spawned){
-        this.player.score += 1
+        this.player.setScore(1, this.scoreText)
         dot.despawn(this)
-        this.scoreText.innerHTML = `Score : ${this.player.score}`
       }
     }
 
