@@ -10,8 +10,9 @@ export class Player extends Entity {
   constructor(gameScreen: GameScreen){
     super();
     this.element = document.getElementById("player")!;
-    this.pos = {x: gameScreen.getHeight()/10, y: gameScreen.getHeight()/10}
-    this.setPos(this.pos.x, this.pos.y, gameScreen)
+    this.setDirection("right");
+    this.pos = {x: gameScreen.getHeight()/10, y: gameScreen.getHeight()/10};
+    this.setPos(this.pos.x, this.pos.y, gameScreen);
     this.element.style.display = "inline";
   }
 

@@ -1,4 +1,6 @@
-.entity {
+@import url('https://fonts.googleapis.com/css2?family=Audiowide&display=swap');
+
+.character {
   background-size: 110%;
   background-position: center;
   background-repeat: no-repeat;
@@ -7,6 +9,20 @@
   width: 3%;
   aspect-ratio: 1 / 1;
   /*border: solid white;*/
+}
+
+@keyframes flash {
+  from, to { background-color: rgb(255, 169, 191);}
+  50% { background-color: rgb(255, 255, 255);}
+}
+
+.dot {
+  width: 1%;
+  aspect-ratio: 1 / 1;
+  background-color: rgb(255, 169, 191);
+  animation: flash 300ms infinite steps(1);
+  position: absolute;
+  display: none;
 }
 
 #player {
@@ -28,17 +44,36 @@
 #inky {
   background-image: url("../images/inky/inky-default-down.gif");
 }
+/* for later
+div.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 10px;
+  height: 95%;
+  background-color: white;
+  overflow: hidden;
+}
+  */
 
-
-div.gameScreen > p {
-  font-size: 2rem;
-  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+div.gameScreen > p.centerText {
+  font-size: 3vw;
+  font-family: 'Audiowide', cursive;
   color: white;
   position: absolute;
   right: 50%;
   bottom: 50%;
   transform: translate(50%, 50%);
   background-color: black;
+}
+
+p.scoreText {
+  font-size: 1rem;
+  font-family: 'Audiowide', cursive;
+  color: rgb(255, 255, 255);
+  opacity: 70%;
+  position: absolute;
+  transform: translate(50%, 50%);
 }
 
 div.gameScreen {
@@ -49,9 +84,7 @@ div.gameScreen {
   height: calc(95vw/16*9);
   max-height: 95%;
   max-width: calc(95vh/9*16);
-  position: relative;
   border: solid blue 0.3rem;
-  /*position: fixed;*/
   margin: auto;
   position: relative;
 }

@@ -1,6 +1,7 @@
 import { Blinky } from "../entities/blinky.js";
 import { Clyde } from "../entities/clyde.js";
 import { Inky } from "../entities/inky.js";
+import { Dot } from "../entities/item/dot.js";
 import { Phantom } from "../entities/phantom.js";
 import { Pinky } from "../entities/pinky.js";
 import { Player } from "../entities/player.js";
@@ -8,24 +9,27 @@ import { delay, getRandomInt } from "../utils/helper.js";
 
 export class GameScreen {
   public element: HTMLElement;
-  public text: HTMLElement
+  public text: HTMLElement;
+  public scoreText: HTMLElement;
   public player: Player;
   public blinky: Blinky;
   public pinky: Pinky;
   public clyde: Clyde;
   public inky: Inky;
   public phantoms: Phantom[];
+  public dots: Dot[];
   public animationId: number
   public boundStart: () => void;
   public boundStop: () => void;
+  public boundPlayerEvent: (event: KeyboardEvent) => void;
 
   constructor(){
     //init gameScreen size
     this.element = document.getElementById("gameScreen")!;
     this.element.style.width = this.getWidth().toString() + 'px';
     this.element.style.height = this.getHeight().toString() + 'px';
-
-    //init entities
+    console.log(this.getWidth()/16, this.getHeight()/9);
+    //init characters
     this.player = new Player(this);
     this.blinky = new Blinky(this);
     this.pinky = new Pinky(this);
@@ -33,9 +37,14 @@ export class GameScreen {
     this.inky = new Inky(this);
     this.phantoms = [this.blinky, this.pinky, this.clyde, this.inky];
 
+    //init items
+    this.dots = [new Dot(document.getElementById("dot1")!), new Dot(document.getElementById("dot2")!)]
+
     this.text = document.getElementById("text")!;
+    this.scoreText = document.getElementById("scoreText")!;
     this.boundStart = () => this.start();
     this.boundStop = () => this.stop();
+    this.boundPlayerEvent = (event: KeyboardEvent) => this.player.getEvent(event)
     this.animationId = 0
     window.addEventListener("keydown", this.boundStart);
   }
@@ -47,6 +56,7 @@ export class GameScreen {
     this.clyde = new Clyde(this);
     this.inky = new Inky(this);
     this.phantoms = [this.blinky, this.pinky, this.clyde, this.inky]
+    this.dots = [new Dot(document.getElementById("dot1")!), new Dot(document.getElementById("dot2")!)]
     this.text.style.display = "block"
     this.text.innerHTML = "Press any button"
     window.addEventListener("keydown", this.boundStart)
@@ -92,9 +102,12 @@ export class GameScreen {
     window.removeEventListener("keydown", this.boundStart)
     this.text.style.display = "none"
     console.log("START");
-    window.addEventListener("keydown", this.player.getEvent.bind(this.player));
-    window.addEventListener("keydown", this.getEvent.bind(this));
     this.animationId = requestAnimationFrame(() => this.gameLoop())
+    window.addEventListener("keydown", this.boundPlayerEvent);
+    window.addEventListener("keydown", this.getEvent.bind(this));
+    for(let dot of this.dots){
+      dot.cooldown(this)
+    }
   }
 
   public stop(){
@@ -109,6 +122,7 @@ export class GameScreen {
     cancelAnimationFrame(this.animationId)
     this.text.style.display = "block"
     this.text.innerHTML = "you died xD"
+    window.removeEventListener("keydown", this.boundPlayerEvent)
     delay(1000).then(() => window.addEventListener("keydown", this.boundStop))
   }
 
@@ -120,10 +134,12 @@ export class GameScreen {
     }
   }
 
-  public gameLoop(frame: number = 1){
-    if(frame > 60){
+  public gameLoop(frame: number = 1, s: number = 0){
+    if(frame > 60){ //+1 second
       frame = 1;
+      s += 1
     }
+
     this.player.move(this)
     this.blinky.move(this, this.player, frame)
     this.pinky.move(this, this.player, frame)
@@ -137,6 +153,14 @@ export class GameScreen {
       }
     }
 
-    this.animationId = requestAnimationFrame(() => this.gameLoop(frame + 1))
+    for(let dot of this.dots){
+      if(this.player.isColliding(dot) && dot.spawned){
+        this.player.score += 1
+        dot.despawn(this)
+        this.scoreText.innerHTML = `Score : ${this.player.score}`
+      }
+    }
+
+    this.animationId = requestAnimationFrame(() => this.gameLoop(frame + 1, s))
   }
 }
