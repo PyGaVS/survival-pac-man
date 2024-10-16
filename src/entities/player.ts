@@ -6,6 +6,8 @@ import { Entity } from "./entity.js";
 
 export class Player extends Entity {
 
+  public bestScore: number = 0;
+
   constructor(gameScreen: GameScreen){
     super();
     this.element = document.getElementById("player")!;
@@ -14,6 +16,7 @@ export class Player extends Entity {
     this.setPos(this.pos.x, this.pos.y, gameScreen);
     this.element.style.display = "inline";
     this.setScore(0, gameScreen.scoreText, true);
+    this.setBestScore(gameScreen.bestScoreText, Number(localStorage.getItem('best')) ?? 0);
   }
 
   public move(gameScreen: GameScreen){
@@ -85,5 +88,13 @@ export class Player extends Entity {
   public setScore(score: number, scoreText: HTMLElement, reset: boolean = false){
     this.score = reset ? score : this.score + 1
     scoreText.innerHTML = `Score : ${this.score}`
+  }
+
+  public setBestScore(bestScoreText: HTMLElement, score: number = this.score){
+    if(score > this.bestScore){
+      localStorage.setItem("best", score.toString())
+      this.bestScore = score
+      bestScoreText.innerHTML = `Best : ${score}`
+    }
   }
 }

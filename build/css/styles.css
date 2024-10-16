@@ -67,14 +67,20 @@ div.gameScreen > p.centerText {
   background-color: black;
 }
 
-p.scoreText {
+p.scoreText, p.bestScoreText {
   font-size: 1rem;
   font-family: 'Audiowide', cursive;
   color: rgb(255, 255, 255);
   opacity: 70%;
   position: absolute;
-  transform: translate(50%, 50%);
+  left: 2%;
 }
+
+p.bestScoreText {
+  top: 4%
+}
+
+
 
 div.gameScreen {
   background-image : url('../images/background/void.jpg');

@@ -11,6 +11,7 @@ export class GameScreen {
   public element: HTMLElement;
   public text: HTMLElement;
   public scoreText: HTMLElement;
+  public bestScoreText: HTMLElement
   public gameId: number = 0;
   public player: Player;
   public blinky: Blinky;
@@ -33,6 +34,7 @@ export class GameScreen {
 
     this.text = document.getElementById("text")!;
     this.scoreText = document.getElementById("scoreText")!;
+    this.bestScoreText = document.getElementById("bestScoreText")!;
     //init characters
     this.player = new Player(this);
     this.blinky = new Blinky(this);
@@ -115,6 +117,7 @@ export class GameScreen {
 
   public stop(){
     window.removeEventListener("keydown", this.boundStop)
+    this.player.setBestScore(this.bestScoreText)
     console.log("STOP")
     cancelAnimationFrame(this.animationId)
     this.init()
@@ -122,6 +125,7 @@ export class GameScreen {
 
   public lose(){
     console.log("LOSE")
+    this.player.setBestScore(this.bestScoreText)
     cancelAnimationFrame(this.animationId)
     this.text.style.display = "block"
     this.text.innerHTML = "you died xD"
@@ -159,6 +163,7 @@ export class GameScreen {
     for(let dot of this.dots){
       if(this.player.isColliding(dot) && dot.spawned){
         this.player.setScore(1, this.scoreText)
+        this.player.setBestScore(this.bestScoreText)
         dot.despawn(this)
       }
     }
