@@ -57,7 +57,7 @@ div.row {
   */
 
 div.gameScreen > p.centerText {
-  font-size: 3vw;
+  font-size: clamp(1rem, 5vw, 3rem);
   font-family: 'Audiowide', cursive;
   color: white;
   position: absolute;
@@ -68,12 +68,13 @@ div.gameScreen > p.centerText {
 }
 
 p.scoreText, p.bestScoreText {
-  font-size: 1rem;
+  font-size: clamp(0.5rem, 1vw, 1rem);
   font-family: 'Audiowide', cursive;
   color: rgb(255, 255, 255);
   opacity: 70%;
   position: absolute;
   left: 2%;
+  margin-bottom: 50px;
 }
 
 p.bestScoreText {
@@ -86,15 +87,24 @@ div.gameScreen {
   background-image : url('../images/background/void.jpg');
   background-attachment: fixed;
   scroll-behavior: smooth;
+  
+  /*
   width: 95%;
   height: calc(95vw/16*9);
   max-height: 95%;
   max-width: calc(95vh/9*16);
-  border: solid blue 0.3rem;
+  */
+
   margin: auto;
+  border: solid blue 4px;
   position: relative;
 }
 
 body {
   background-color: black;
+  font-size: 1rem;
+}
+
+html {
+  font-size: 16px;
 }

@@ -28,8 +28,7 @@ export class GameScreen {
   constructor(){
     //init gameScreen size
     this.element = document.getElementById("gameScreen")!;
-    this.element.style.width = this.getWidth().toString() + 'px';
-    this.element.style.height = this.getHeight().toString() + 'px';
+    this.resize()
     console.log(this.getWidth()/16, this.getHeight()/9);
 
     this.text = document.getElementById("text")!;
@@ -65,6 +64,25 @@ export class GameScreen {
     this.text.style.display = "block"
     this.text.innerHTML = "Press any button"
     window.addEventListener("keydown", this.boundStart)
+  }
+
+  public resize(){
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    this.element.style.width = (width - width/10).toString()
+    this.element.style.height = (height - height/10).toString()
+
+    if(width*16 > height*9){
+      this.element.style.width = (width - width/10).toString()
+      this.element.style.height = ((width - width/10)/16*9).toString()
+
+      this.element.style.height = (height - height/10).toString()
+      this.element.style.width = ((height - height/10)/9*16).toString()
+    } else {
+      this.element.style.height = (height - height/10).toString()
+      this.element.style.width = ((height - height/10)/9*16).toString()
+    }
   }
 
   public getStep(speed: number): number{
